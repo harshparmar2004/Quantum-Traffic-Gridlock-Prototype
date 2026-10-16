@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantum-traffic-gridlock"
+version = "0.1.0"
+description = "Quantum Optimization for Coordinated Urban Traffic Signals - IBM Qiskit Fall Fest 2026"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "qiskit>=2.0.0",
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

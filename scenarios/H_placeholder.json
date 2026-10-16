@@ -1,0 +1,21 @@
+{
+  "name": "H_placeholder",
+  "capacity": 4,
+  "storage": 6,
+  "overflow_weight": 3.0,
+  "switch_weight": 1.0,
+  "link": {
+    "approach": "NS",
+    "fraction": 0.5
+  },
+  "arrivals": {
+    "A": {
+      "NS": [4, 5, 2, 6],
+      "EW": [3, 4, 5, 1]
+    },
+    "B": {
+      "NS": [2, 4, 6, 3],
+      "EW": [5, 2, 3, 4]
+    }
+  }
+}
