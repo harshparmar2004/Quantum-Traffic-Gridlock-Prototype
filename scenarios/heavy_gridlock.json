@@ -1,0 +1,21 @@
+{
+  "name": "Heavy_Gridlock",
+  "capacity": 4,
+  "storage": 5,
+  "overflow_weight": 5.0,
+  "switch_weight": 0.75,
+  "link": {
+    "approach": "EW",
+    "fraction": 0.8
+  },
+  "arrivals": {
+    "A": {
+      "NS": [6, 8, 7, 5],
+      "EW": [7, 6, 8, 4]
+    },
+    "B": {
+      "NS": [5, 7, 8, 6],
+      "EW": [6, 7, 5, 8]
+    }
+  }
+}

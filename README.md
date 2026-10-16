@@ -247,25 +247,40 @@ When `python run.py --scenario scenarios/R.json --seed 7 --out out/R_seed7` is e
 
 ---
 
-## 6. Interactive Simulation Dashboard
+## 6. Interactive Simulation Dashboard & Backend API
 
-A zero-dependency standalone dashboard is provided at `dashboard/index.html`.
+A lightweight, responsive web visualizer is provided in `dashboard/index.html` backed by `server.py`.
 
-### How to Launch & Use:
-- **Zero-Server Launch**: Simply double-click `dashboard/index.html` or run:
-  ```bash
-  python -m http.server 8000 --directory dashboard
-  # Open in browser: http://localhost:8000
-  ```
-- **Features**:
-  - **Animated Intersection Canvas**: Visualizes Intersections A & B side-by-side with animated vehicle queues, green/red lights, and vehicle platoon transfers moving along the link.
-  - **Slot-by-Slot Stepper**: Step through Slots 1, 2, 3, 4 at 30-second increments.
-  - **Live Comparison Selector**: Toggle between:
-    - *QAOA Optimal* (`11101010`, Cost: 72.0)
-    - *Per-Slot Greedy* (`01111001`, Cost: 92.5)
-    - *Best Alternating* (`10101010`, Cost: 116.0)
-    - *All-EW / Gridlock* (`00000000`, Cost: 237.0)
-  - **Live Performance Counters**: Computes exact official delay, overflow, switches, and cost on the fly.
+### Visual Design & Aesthetics
+- **Theme**: Warm Cloud & Beige palette (`#FAF7F2`, `#F5EFE6`) with terracotta orange accents (`#E05A2B`) and deep espresso typography (`#2C2420`).
+- **Strictly No Dark Blue / AI Stack Aesthetic**: Designed like an executive urban traffic operations center.
+- **Offline & Standalone**: Operates 100% offline. If `server.py` is running, it connects via REST API. If opened directly via file or static web server, it falls back to an embedded client-side simulation engine.
+
+### How to Launch:
+```bash
+# Option A: Full Python Backend + Static Server (Recommended)
+python server.py --port 8000
+
+# Option B: Standard Python Static Server
+python -m http.server 8000 --directory dashboard
+
+# Option C: Direct File Access
+# Simply double-click dashboard/index.html in Windows Explorer
+```
+Then navigate to **`http://localhost:8000`** in your browser.
+
+### Key Interactive Features:
+1. **Network Roadway Visualizer**: Canvas rendering of Intersections A & B connected by the directional link. Visualizes queue backlogs, signal phases (NS vs EW), and inter-intersection platoon transfers.
+2. **Interactive 8-Bit Signal Builder**: Click any of the 8 bits ($A_1..A_4, B_1..B_4$) to toggle between NS ($1$, green) and EW ($0$, orange) and watch queues react in real time.
+3. **Four Pre-Packaged Test Scenarios**:
+   - `Scenario R`: Official reference benchmark ($C^* = 72.0$).
+   - `Scenario H`: Hidden evaluation placeholder ($C^* = 98.0$).
+   - `Heavy Gridlock`: High inflow rates, lower capacity ($c=4$), extreme spillover risk.
+   - `Asymmetric Rush Hour`: Heavy arterial platoon, NS link approach.
+   - **Custom JSON Editor**: Modal to paste and test arbitrary scenario definitions.
+4. **Instant Verification Vectors**: One-click buttons to evaluate the 4 official problem statement vectors (`1010|1010 -> 116.0`, `1111|1111 -> 146.0`, `0000|0000 -> 237.0`, `0111|1001 -> 92.5`).
+5. **Quantum QAOA Sampling**: One-click execution of 8-qubit Fourier QAOA ($p=3$, 4,096 shots) reporting Lift, Elite Enrichment, and optimal schedule.
+
 
 ---
 

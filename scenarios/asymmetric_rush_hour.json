@@ -1,0 +1,21 @@
+{
+  "name": "Asymmetric_Rush_Hour",
+  "capacity": 5,
+  "storage": 6,
+  "overflow_weight": 4.5,
+  "switch_weight": 0.5,
+  "link": {
+    "approach": "NS",
+    "fraction": 0.7
+  },
+  "arrivals": {
+    "A": {
+      "NS": [8, 7, 8, 6],
+      "EW": [1, 2, 1, 2]
+    },
+    "B": {
+      "NS": [2, 3, 2, 4],
+      "EW": [7, 8, 6, 7]
+    }
+  }
+}
