@@ -666,6 +666,20 @@ cmd_tech = [
 print("Compiling Technical_Report.pdf...")
 subprocess.run(cmd_tech, check=True)
 
+# Compile AI Disclosure
+ai_html_path = REPORT_DIR / "AI_Use_Disclosure.html"
+ai_pdf_path = SUBMISSION_DIR / "AI_Use_Disclosure.pdf"
+cmd_ai = [
+    edge_exe,
+    "--headless",
+    "--disable-gpu",
+    "--no-pdf-header-footer",
+    f"--print-to-pdf={ai_pdf_path.resolve()}",
+    ai_html_path.resolve().as_uri()
+]
+print("Compiling AI_Use_Disclosure.pdf...")
+subprocess.run(cmd_ai, check=True)
+
 # ---------------------------------------------------------------------------
 # 4. Verify Page Counts and Vertical Fill
 # ---------------------------------------------------------------------------
@@ -681,7 +695,19 @@ for i, page in enumerate(doc_tech):
     if blocks:
         max_y = max(b[3] for b in blocks)
         gap = 754.7 - max_y
-        print(f"  Page {i+1} text ends at y={max_y:.1f} / 792.0 (gap above footer: {gap:.1f}pt, fill: {max_y/754.7*100:.1f}%)")
+        print(f"  Technical Report Page {i+1} text ends at y={max_y:.1f} / 792.0 (gap above footer: {gap:.1f}pt, fill: {max_y/754.7*100:.1f}%)")
+
+doc_ai = fitz.open(ai_pdf_path)
+ai_pages = len(doc_ai)
+print(f"--> AI_Use_Disclosure.pdf: {ai_pages} page(s)")
+if ai_pages != 1:
+    print(f"CRITICAL ERROR: AI_Use_Disclosure.pdf MUST be exactly 1 page, but got {ai_pages}!")
+    sys.exit(1)
+
+page_ai = doc_ai[0]
+blocks_ai = page_ai.get_text("blocks")
+max_y_ai = max(b[3] for b in blocks_ai)
+print(f"  AI Disclosure Page 1 text ends at y={max_y_ai:.1f} / 792.0 (gap above bottom: {792.0 - max_y_ai:.1f}pt, fill: {max_y_ai/792.0*100:.1f}%)")
 
 # ---------------------------------------------------------------------------
 # 5. Re-package Submission Zip
