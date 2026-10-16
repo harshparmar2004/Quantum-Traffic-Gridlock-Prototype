@@ -32,6 +32,7 @@ from traffic.qaoa import (
     sample_final_qaoa,
     train_qaoa,
 )
+from traffic.qaoa_fourier import train_qaoa_fourier
 from traffic.baselines import (
     alternating_baseline,
     classical_refinement_hybrid,
@@ -56,6 +57,7 @@ def execute_pipeline(
     max_evals: int = MAX_EVALS_DEFAULT,
     variant: str = DEFAULT_VARIANT,
     cvar_alpha: float = 1.0,
+    param_mode: str = "fourier",
     verbose: bool = True,
 ) -> Dict[str, Any]:
     """Execute complete quantum optimization pipeline end-to-end."""
@@ -69,6 +71,7 @@ def execute_pipeline(
         print(f"============================================================")
         print(f"Capacity: {scen['capacity']}, Storage: {scen['storage']}, Overflow Weight: {scen['overflow_weight']}, Switch Weight: {scen['switch_weight']}")
         print(f"Link: A -> B on {scen['link']['approach']} (fraction {scen['link']['fraction']})")
+        print(f"QAOA: depth p={p}, param_mode={param_mode}, max_evals={max_evals}")
 
     # Step 1: Benchmark enumeration (authoritative ground truth C*)
     enum_res = enumerate_all(scen)
@@ -90,7 +93,10 @@ def execute_pipeline(
     # Step 4: QAOA Training
     h = qubo_data["h"]
     J = qubo_data["J"]
-    opt_res = train_qaoa(h, J, p=p, seed=seed, max_evals=max_evals, cvar_alpha=cvar_alpha)
+    if param_mode == "fourier":
+        opt_res = train_qaoa_fourier(h, J, p=p, q=2, seed=seed, max_evals=max_evals, cvar_alpha=cvar_alpha)
+    else:
+        opt_res = train_qaoa(h, J, p=p, seed=seed, max_evals=max_evals, cvar_alpha=cvar_alpha)
 
     # Step 5: QAOA 4096-Shot Sampling
     circ_with_meas, counts, qasm3_str = sample_final_qaoa(h, J, opt_res, seed=seed, shots=4096)
@@ -223,6 +229,7 @@ def main():
     parser.add_argument("--p", type=int, default=DEFAULT_P, help=f"QAOA depth p (default: {DEFAULT_P}, max: 4)")
     parser.add_argument("--max-evals", type=int, default=MAX_EVALS_DEFAULT, help=f"Maximum objective evaluations (default: {MAX_EVALS_DEFAULT})")
     parser.add_argument("--variant", type=str, default=DEFAULT_VARIANT, choices=["V0", "V1", "V2"], help="QUBO formulation variant")
+    parser.add_argument("--param-mode", type=str, default="fourier", choices=["fourier", "standard"], help="QAOA parameter optimization mode (fourier: discrete sine/cosine, standard: raw angles)")
     parser.add_argument("--cvar-alpha", type=float, default=1.0, help="CVaR alpha parameter (default 1.0 for standard expectation)")
     parser.add_argument("--quiet", action="store_true", help="Suppress verbose stdout")
     args = parser.parse_args()
@@ -240,6 +247,7 @@ def main():
         max_evals=args.max_evals,
         variant=args.variant,
         cvar_alpha=args.cvar_alpha,
+        param_mode=args.param_mode,
         verbose=not args.quiet,
     )
 

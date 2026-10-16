@@ -1,0 +1,33 @@
+{
+  "scenario": "R",
+  "safety_sweep": [
+    {
+      "lambda_safety": 0.0,
+      "best_schedule": "11101010",
+      "official_cost": 72.0,
+      "flutters_count": 2,
+      "flutter_free": false
+    },
+    {
+      "lambda_safety": 1.0,
+      "best_schedule": "11101010",
+      "official_cost": 72.0,
+      "flutters_count": 2,
+      "flutter_free": false
+    },
+    {
+      "lambda_safety": 2.5,
+      "best_schedule": "11101010",
+      "official_cost": 72.0,
+      "flutters_count": 2,
+      "flutter_free": false
+    },
+    {
+      "lambda_safety": 5.0,
+      "best_schedule": "11101001",
+      "official_cost": 79.5,
+      "flutters_count": 0,
+      "flutter_free": true
+    }
+  ]
+}

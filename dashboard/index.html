@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Traffic Gridlock - Interactive Simulation Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #eab308;
+            --border-color: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background: var(--bg-color); color: var(--text-main); padding: 20px; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        h1 { font-size: 1.5rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .badge { background: #0369a1; color: #fff; font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; font-weight: normal; }
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        @media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; } }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; }
+        .canvas-container { position: relative; width: 100%; height: 380px; background: #090d16; border-radius: 8px; overflow: hidden; }
+        canvas { width: 100%; height: 100%; display: block; }
+        .controls-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 15px; }
+        button { background: #0284c7; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
+        button:hover { background: #0369a1; }
+        button.secondary { background: var(--card-bg); border: 1px solid var(--border-color); }
+        button.secondary:hover { background: #334155; }
+        select, input[type="text"] { background: #0f172a; border: 1px solid var(--border-color); color: white; padding: 8px 12px; border-radius: 6px; }
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .metric-box { background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; text-align: center; }
+        .metric-val { font-size: 1.6rem; font-weight: bold; color: var(--accent); margin-top: 4px; }
+        .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+        .schedule-display { font-family: monospace; font-size: 1.1rem; letter-spacing: 2px; background: #090d16; padding: 10px; border-radius: 6px; text-align: center; border: 1px dashed var(--accent); margin: 10px 0; }
+        .slot-indicator { display: flex; gap: 8px; margin-top: 10px; }
+        .slot-pill { flex: 1; text-align: center; padding: 6px; border-radius: 6px; background: #0f172a; font-size: 0.8rem; border: 1px solid var(--border-color); cursor: pointer; }
+        .slot-pill.active { background: #0284c7; font-weight: bold; border-color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Quantum Traffic Gridlock <span class="badge">QC@IITI Fall Fest 2026</span></h1>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">Interactive Multi-Intersection QAOA Signal Simulator & Diagnostics</p>
+            </div>
+            <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Scenario: <strong>Public Reference R</strong></span>
+            </div>
+        </header>
+
+        <div class="grid-layout">
+            <!-- Left: Simulation Canvas -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h2 style="font-size: 1.1rem;">Network Visualizer (Intersections A & B)</h2>
+                    <span id="slot-time-label" style="font-size: 0.85rem; color: var(--accent);">Slot 1 (00s - 30s)</span>
+                </div>
+                
+                <div class="canvas-container">
+                    <canvas id="trafficCanvas" width="700" height="380"></canvas>
+                </div>
+
+                <div class="controls-row">
+                    <button id="btnPlay">▶ Play</button>
+                    <button id="btnStep" class="secondary">⏭ Next Slot</button>
+                    <button id="btnReset" class="secondary">↺ Reset</button>
+                    <div style="flex: 1;"></div>
+                    <div class="slot-indicator">
+                        <div class="slot-pill active" onclick="setSlot(0)">Slot 1</div>
+                        <div class="slot-pill" onclick="setSlot(1)">Slot 2</div>
+                        <div class="slot-pill" onclick="setSlot(2)">Slot 3</div>
+                        <div class="slot-pill" onclick="setSlot(3)">Slot 4</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Controls & Metrics -->
+            <div class="card">
+                <h2 style="font-size: 1.1rem; margin-bottom: 15px;">Schedule Controller</h2>
+                
+                <label style="font-size: 0.8rem; color: var(--text-muted);">Select Schedule Preset:</label>
+                <select id="presetSelect" style="width: 100%; margin-top: 5px;" onchange="loadPreset()">
+                    <option value="11101010">QAOA Optimal (1110|1010) - Cost: 72.0</option>
+                    <option value="01111001">Per-Slot Greedy (0111|1001) - Cost: 92.5</option>
+                    <option value="10101010">Best Alternating (1010|1010) - Cost: 116.0</option>
+                    <option value="11111111">All-NS Green (1111|1111) - Cost: 146.0</option>
+                    <option value="00000000">All-EW Green (0000|0000) - Cost: 237.0</option>
+                </select>
+
+                <div style="margin-top: 15px;">
+                    <label style="font-size: 0.8rem; color: var(--text-muted);">Active 8-Bit Schedule [A1..A4, B1..B4]:</label>
+                    <div class="schedule-display" id="schedDisplay">11101010</div>
+                </div>
+
+                <h3 style="font-size: 0.95rem; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">Official Performance Metrics</h3>
+                
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-label">Official Cost</div>
+                        <div class="metric-val" id="metricCost" style="color: var(--accent-green);">72.0</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Total Delay</div>
+                        <div class="metric-val" id="metricDelay">56</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Overflow (Q > 7)</div>
+                        <div class="metric-val" id="metricOverflow">3</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Phase Switches</div>
+                        <div class="metric-val" id="metricSwitches">4</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+                    Formula: <code style="color: var(--accent);">Cost = Delay + 4×Overflow + 0.5×Switches</code>.<br/>
+                    Capacity = 5/slot, Storage = 7, Link = A→B on EW (fraction 0.6).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarioR = {
+            capacity: 5, storage: 7, overflow_weight: 4.0, switch_weight: 0.5,
+            link: { approach: "EW", fraction: 0.6 },
+            arrivals: {
+                A: { NS: [3, 6, 6, 3], EW: [5, 1, 1, 2] },
+                B: { NS: [3, 5, 4, 3], EW: [2, 6, 4, 6] }
+            }
+        };
+
+        let currentSchedule = [1, 1, 1, 0, 1, 0, 1, 0];
+        let currentSlot = 0;
+        let isPlaying = false;
+        let playInterval = null;
+
+        const canvas = document.getElementById('trafficCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function simulateFull(bits) {
+            const a_bits = bits.slice(0, 4);
+            const b_bits = bits.slice(4, 8);
+            let queues = { A: { NS: 0, EW: 0 }, B: { NS: 0, EW: 0 } };
+            let transfers = [0, 0, 0, 0];
+            let history = [];
+            let totalDelay = 0, totalOvf = 0;
+
+            for (let t = 0; t < 4; t++) {
+                // arrivals
+                queues.A.NS += scenarioR.arrivals.A.NS[t];
+                queues.A.EW += scenarioR.arrivals.A.EW[t];
+                queues.B.NS += scenarioR.arrivals.B.NS[t];
+                queues.B.EW += scenarioR.arrivals.B.EW[t] + transfers[t];
+
+                // pre-service snapshot
+                const preA_NS = queues.A.NS, preA_EW = queues.A.EW;
+                const preB_NS = queues.B.NS, preB_EW = queues.B.EW;
+
+                // service
+                const greenA = a_bits[t] === 1 ? 'NS' : 'EW';
+                const greenB = b_bits[t] === 1 ? 'NS' : 'EW';
+
+                const servA_NS = greenA === 'NS' ? Math.min(queues.A.NS, scenarioR.capacity) : 0;
+                const servA_EW = greenA === 'EW' ? Math.min(queues.A.EW, scenarioR.capacity) : 0;
+                queues.A.NS -= servA_NS; queues.A.EW -= servA_EW;
+
+                const servB_NS = greenB === 'NS' ? Math.min(queues.B.NS, scenarioR.capacity) : 0;
+                const servB_EW = greenB === 'EW' ? Math.min(queues.B.EW, scenarioR.capacity) : 0;
+                queues.B.NS -= servB_NS; queues.B.EW -= servB_EW;
+
+                // delay & ovf
+                const delayT = queues.A.NS + queues.A.EW + queues.B.NS + queues.B.EW;
+                const ovfT = Math.max(0, queues.A.NS - scenarioR.storage) + Math.max(0, queues.A.EW - scenarioR.storage) +
+                             Math.max(0, queues.B.NS - scenarioR.storage) + Math.max(0, queues.B.EW - scenarioR.storage);
+                totalDelay += delayT;
+                totalOvf += ovfT;
+
+                // transfers
+                const transVal = Math.floor(0.6 * servA_EW + 0.5);
+                if (t + 1 < 4) transfers[t + 1] = transVal;
+
+                history.push({
+                    t, greenA, greenB,
+                    queues: { A: { ...queues.A }, B: { ...queues.B } },
+                    served: { A: { NS: servA_NS, EW: servA_EW }, B: { NS: servB_NS, EW: servB_EW } },
+                    transferToB: transVal
+                });
+            }
+
+            let switchesA = 0, switchesB = 0;
+            for (let t = 0; t < 3; t++) {
+                if (a_bits[t] !== a_bits[t+1]) switchesA++;
+                if (b_bits[t] !== b_bits[t+1]) switchesB++;
+            }
+            const totalSwitches = switchesA + switchesB;
+            const cost = totalDelay + 4.0 * totalOvf + 0.5 * totalSwitches;
+
+            return { history, totalDelay, totalOvf, totalSwitches, cost };
+        }
+
+        function drawNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const sim = simulateFull(currentSchedule);
+            const slotData = sim.history[currentSlot];
+
+            // Road layout
+            ctx.fillStyle = '#1e293b';
+            // NS corridor A
+            ctx.fillRect(160, 20, 60, 340);
+            // NS corridor B
+            ctx.fillRect(480, 20, 60, 340);
+            // EW link A -> B
+            ctx.fillRect(20, 160, 660, 60);
+
+            // Junction boxes
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(160, 160, 60, 60);
+            ctx.fillRect(480, 160, 60, 60);
+
+            // Labels
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '12px monospace';
+            ctx.fillText('INTERSECTION A', 145, 15);
+            ctx.fillText('INTERSECTION B', 465, 15);
+
+            // Link arrow
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText('Directed Link (EW, f=0.6) ──►', 260, 195);
+            if (slotData.transferToB > 0) {
+                ctx.fillStyle = '#eab308';
+                ctx.fillText(`+${slotData.transferToB} trans`, 320, 212);
+            }
+
+            // Draw traffic lights
+            drawTrafficLight(230, 140, slotData.greenA === 'NS');
+            drawTrafficLight(550, 140, slotData.greenB === 'NS');
+
+            // Draw queues
+            drawQueue(190, 90, 'NS', slotData.queues.A.NS);
+            drawQueue(90, 190, 'EW', slotData.queues.A.EW);
+            drawQueue(510, 90, 'NS', slotData.queues.B.NS);
+            drawQueue(410, 190, 'EW', slotData.queues.B.EW);
+
+            // Update metrics card
+            document.getElementById('metricCost').innerText = sim.cost.toFixed(1);
+            document.getElementById('metricDelay').innerText = sim.totalDelay;
+            document.getElementById('metricOverflow').innerText = sim.totalOvf;
+            document.getElementById('metricSwitches').innerText = sim.totalSwitches;
+            document.getElementById('slot-time-label').innerText = `Slot ${currentSlot + 1} (${currentSlot * 30}s - ${(currentSlot + 1) * 30}s)`;
+        }
+
+        function drawTrafficLight(x, y, isNSGreen) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x, y, 16, 32);
+            // Top: NS light
+            ctx.fillStyle = isNSGreen ? '#22c55e' : '#ef4444';
+            ctx.beginPath(); ctx.arc(x + 8, y + 8, 5, 0, Math.PI * 2); ctx.fill();
+            // Bottom: EW light
+            ctx.fillStyle = !isNSGreen ? '#22c55e' : '#ef4444';
+            ctx.beginPath(); ctx.arc(x + 8, y + 24, 5, 0, Math.PI * 2); ctx.fill();
+        }
+
+        function drawQueue(x, y, label, count) {
+            ctx.fillStyle = count > 7 ? '#ef4444' : '#38bdf8';
+            ctx.beginPath(); ctx.arc(x, y, 14, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(count, x, y);
+        }
+
+        function setSlot(slot) {
+            currentSlot = slot;
+            document.querySelectorAll('.slot-pill').forEach((el, idx) => {
+                el.classList.toggle('active', idx === slot);
+            });
+            drawNetwork();
+        }
+
+        function loadPreset() {
+            const val = document.getElementById('presetSelect').value;
+            currentSchedule = val.split('').map(x => parseInt(x));
+            document.getElementById('schedDisplay').innerText = val.slice(0, 4) + ' | ' + val.slice(4, 8);
+            setSlot(0);
+        }
+
+        document.getElementById('btnStep').onclick = () => {
+            setSlot((currentSlot + 1) % 4);
+        };
+
+        document.getElementById('btnReset').onclick = () => {
+            setSlot(0);
+        };
+
+        document.getElementById('btnPlay').onclick = () => {
+            isPlaying = !isPlaying;
+            document.getElementById('btnPlay').innerText = isPlaying ? '⏸ Pause' : '▶ Play';
+            if (isPlaying) {
+                playInterval = setInterval(() => {
+                    setSlot((currentSlot + 1) % 4);
+                }, 1200);
+            } else {
+                clearInterval(playInterval);
+            }
+        };
+
+        loadPreset();
+    </script>
+</body>
+</html>

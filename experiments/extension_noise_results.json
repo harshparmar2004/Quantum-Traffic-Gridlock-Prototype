@@ -1,0 +1,21 @@
+{
+  "scenario": "R",
+  "noise_levels": [
+    0.0,
+    0.005,
+    0.01,
+    0.02,
+    0.03
+  ],
+  "measured_lifts": [
+    0.5464,
+    0.4845,
+    0.4293,
+    0.3365,
+    0.263
+  ],
+  "ideal_lift_zero_noise": 0.5464,
+  "unmitigated_lift_at_1pct_noise": 0.4293,
+  "zne_mitigated_lift": 0.5221,
+  "mitigation_error": 0.0243
+}

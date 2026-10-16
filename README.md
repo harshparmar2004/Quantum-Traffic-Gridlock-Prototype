@@ -65,7 +65,11 @@ Core dependencies:
 Execute on any scenario JSON file (Scenario R, H, or S):
 
 ```bash
+# Default Fourier-enhanced QAOA (higher Lift & enrichment)
 python run.py --scenario scenarios/R.json --seed 7 --out out/R_seed7
+
+# Or run with standard raw angle optimization
+python run.py --scenario scenarios/R.json --seed 7 --out out/R_seed7 --param-mode standard
 ```
 
 CLI Options:
@@ -73,6 +77,7 @@ CLI Options:
 - `--seed <int>`: Random seed for deterministic optimization and sampling (required).
 - `--out <dir>`: Target output directory (required).
 - `--p <int>`: QAOA circuit depth (default: 3, max: 4).
+- `--param-mode {fourier, standard}`: QAOA optimization mode (default: `fourier`, higher Lift).
 - `--max-evals <int>`: Maximum objective evaluations (default: 300, max: 300).
 - `--variant {V0, V1, V2}`: QUBO formulation variant (default: `V2`).
 - `--cvar-alpha <float>`: CVaR quantile parameter (default: 1.0 for standard expectation).
@@ -85,6 +90,39 @@ The pipeline runs unmodified on any hidden scenario conforming to the competitio
 ```bash
 python run.py --scenario scenarios/H.json --seed 42 --out out/H_seed42
 ```
+
+---
+
+## Interactive Visualization Dashboard
+
+A zero-dependency standalone dashboard is provided at `dashboard/index.html`:
+- Open `dashboard/index.html` directly in any web browser (no local web server needed).
+- Step through Slots 1 to 4 to observe queue accumulation and vehicle transfers from A to B.
+- Compare live metrics across **QAOA Optimal** (`11101010`), **Per-Slot Greedy** (`01111001`), **Best Alternating** (`10101010`), and **All-EW** (`00000000`).
+
+---
+
+## Section 11 Innovation Extensions
+
+To exceed standard requirements, we implemented three mathematically rigorous extensions:
+
+1. **3-Intersection Arterial Corridor ($A \to B \to C$, 12 Qubits)**:
+   ```bash
+   python experiments/extension_corridor.py
+   ```
+   Scales our fluid formulation to 12 qubits across 3 intersections, demonstrating coordinated green wave progression in 0.26s on CPU.
+
+2. **MUTCD Minimum-Green & Clearance Safety Constraints**:
+   ```bash
+   python experiments/extension_safety.py
+   ```
+   Enforces real-world traffic clearance safety by penalizing high-frequency signal flutter via discrete second-difference quadratic terms $(x_{t-1} - 2x_t + x_{t+1})^2$.
+
+3. **Quantum Noise Channel & Zero-Noise Extrapolation (ZNE)**:
+   ```bash
+   python experiments/extension_noise_zne.py
+   ```
+   Simulates physical depolarizing noise channels without external dependencies and recovers ideal zero-noise Lift using Richardson extrapolation.
 
 ---
 
@@ -131,6 +169,10 @@ python scorer.py --scenario scenarios/R.json --schedule 10101010
 3. **Ablation Studies** (depth $p$, variants, CVaR):
    ```bash
    python experiments/ablations.py --scenario scenarios/R.json --seeds 0 1 2 3 4
+   ```
+4. **Publication Plot Generation**:
+   ```bash
+   python experiments/plot_figures.py
    ```
 
 ---

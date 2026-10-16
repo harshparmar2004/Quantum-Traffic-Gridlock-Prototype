@@ -1,0 +1,16 @@
+{
+  "network": "3-Intersection Corridor (A -> B -> C)",
+  "num_qubits": 12,
+  "depth_p": 2,
+  "runtime_seconds": 0.265,
+  "ground_energy": -4.2866,
+  "sampled_energy": -0.3085,
+  "uniform_energy": -0.0,
+  "lift": 0.072,
+  "best_schedule_12bits": "101010101010",
+  "qubit_allocation": {
+    "Intersection_A": "1010",
+    "Intersection_B": "1010",
+    "Intersection_C": "1010"
+  }
+}
