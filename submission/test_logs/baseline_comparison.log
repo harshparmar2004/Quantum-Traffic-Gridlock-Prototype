@@ -1,0 +1,52 @@
+================================================================================
+ QUANTUM TRAFFIC GRIDLOCK - COMPREHENSIVE BASELINE COMPARISON BENCHMARK
+================================================================================
+
+SCENARIO: Asymmetric_Rush_Hour (asymmetric_rush_hour.json)
+  Parameters: Capacity=5, Storage=6, Link=NS (f=0.7)
+  Weights: Overflow=4.5, Switch=0.5
+  Benchmark Metrics:
+    - Global Optimum (C*):        271.0  (Schedule: 11110000)
+    - QUBO Exact Minimizer:        271.5  (Schedule: 11110001, Regret: -0.18%)
+    - Per-Slot Greedy Policy:      271.5  (Schedule: 11110011)
+    - Best Alternating Schedule:   328.0  (Schedule: 10100101)
+    - All-NS Baseline (11111111):  355.0
+    - All-EW Baseline (00000000):  386.5
+    - Uniform Random Mean (C_rand): 381.20
+--------------------------------------------------------------------------------
+SCENARIO: H_placeholder (H_placeholder.json)
+  Parameters: Capacity=4, Storage=6, Link=NS (f=0.5)
+  Weights: Overflow=3.0, Switch=1.0
+  Benchmark Metrics:
+    - Global Optimum (C*):         98.0  (Schedule: 10010110)
+    - QUBO Exact Minimizer:        101.0  (Schedule: 01010110, Regret: -2.97%)
+    - Per-Slot Greedy Policy:       98.0  (Schedule: 10010110)
+    - Best Alternating Schedule:   114.0  (Schedule: 01010101)
+    - All-NS Baseline (11111111):  173.0
+    - All-EW Baseline (00000000):  180.0
+    - Uniform Random Mean (C_rand): 141.92
+--------------------------------------------------------------------------------
+SCENARIO: Heavy_Gridlock (heavy_gridlock.json)
+  Parameters: Capacity=4, Storage=5, Link=EW (f=0.8)
+  Weights: Overflow=5.0, Switch=0.75
+  Benchmark Metrics:
+    - Global Optimum (C*):        704.0  (Schedule: 11110000)
+    - QUBO Exact Minimizer:        706.2  (Schedule: 11100110, Regret: -0.32%)
+    - Per-Slot Greedy Policy:      756.8  (Schedule: 01100101)
+    - Best Alternating Schedule:   744.5  (Schedule: 10100101)
+    - All-NS Baseline (11111111):  714.0
+    - All-EW Baseline (00000000):  807.0
+    - Uniform Random Mean (C_rand): 761.50
+--------------------------------------------------------------------------------
+SCENARIO: R (R.json)
+  Parameters: Capacity=5, Storage=7, Link=EW (f=0.6)
+  Weights: Overflow=4.0, Switch=0.5
+  Benchmark Metrics:
+    - Global Optimum (C*):         72.0  (Schedule: 11101010)
+    - QUBO Exact Minimizer:         72.0  (Schedule: 11101010, Regret: 0.00%)
+    - Per-Slot Greedy Policy:       92.5  (Schedule: 01111001)
+    - Best Alternating Schedule:   116.0  (Schedule: 10101010)
+    - All-NS Baseline (11111111):  146.0
+    - All-EW Baseline (00000000):  237.0
+    - Uniform Random Mean (C_rand): 151.25
+--------------------------------------------------------------------------------

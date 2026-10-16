@@ -1,0 +1,10 @@
+# Minimal Runtime Dependencies for Quantum Traffic Gridlock
+# CPU-only execution, zero external web frameworks, 100% offline
+qiskit>=2.0.0
+numpy>=1.26.0
+scipy>=1.12.0
+
+# Optional development and testing utilities
+pytest>=8.0.0
+matplotlib>=3.8.0
+qiskit-qasm3-import>=0.5.0

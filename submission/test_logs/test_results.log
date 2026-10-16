@@ -1,0 +1,31 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.6, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\harsh parmar\.gemini\antigravity\scratch\quantum-traffic-gridlock\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\harsh parmar\.gemini\antigravity\scratch\quantum-traffic-gridlock
+configfile: pyproject.toml
+collecting ... collected 22 items
+
+tests/test_extensions.py::test_fourier_qaoa_angles_and_budget PASSED     [  4%]
+tests/test_extensions.py::test_corridor_12qubit_extension PASSED         [  9%]
+tests/test_extensions.py::test_minimum_green_safety_penalty PASSED       [ 13%]
+tests/test_extensions.py::test_noise_zne_extension PASSED                [ 18%]
+tests/test_no_hardcoding.py::test_no_hardcoding_across_scenarios PASSED  [ 22%]
+tests/test_no_hardcoding.py::test_no_r_arrivals_hardcoded_in_source PASSED [ 27%]
+tests/test_qaoa.py::test_qaoa_budget_and_depth PASSED                    [ 31%]
+tests/test_qaoa.py::test_qaoa_sampling_exact_4096_and_determinism PASSED [ 36%]
+tests/test_qaoa.py::test_openqasm3_reload_consistency PASSED             [ 40%]
+tests/test_qubo.py::test_qubo_shape_and_upper_triangular PASSED          [ 45%]
+tests/test_qubo.py::test_qubo_ising_energy_identity PASSED               [ 50%]
+tests/test_qubo.py::test_qubo_surrogate_regret_on_r PASSED               [ 54%]
+tests/test_qubo.py::test_qubo_on_random_scenarios PASSED                 [ 59%]
+tests/test_scorer.py::test_verification_vectors PASSED                   [ 63%]
+tests/test_scorer.py::test_all_256_schedules_consistency PASSED          [ 68%]
+tests/test_scorer.py::test_enumeration_properties PASSED                 [ 72%]
+tests/test_scorer.py::test_baselines_run PASSED                          [ 77%]
+tests/test_server_and_scenarios.py::test_all_scenarios_valid_and_distinct PASSED [ 81%]
+tests/test_server_and_scenarios.py::test_simulation_on_all_scenarios PASSED [ 86%]
+tests/test_server_and_scenarios.py::test_heavy_gridlock_scenario_dynamics PASSED [ 90%]
+tests/test_server_and_scenarios.py::test_asymmetric_rush_hour_scenario_dynamics PASSED [ 95%]
+tests/test_server_and_scenarios.py::test_server_http_endpoints PASSED    [100%]
+
+============================= 22 passed in 5.49s ==============================
