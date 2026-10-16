@@ -1,68 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>AI-Use Disclosure Statement</title>
 <style>
-    @page { size: letter; margin: 20mm 20mm 20mm 20mm; }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        font-size: 10pt;
-        line-height: 1.5;
-        color: #2C2420;
+    @page {
+        size: letter portrait;
+        margin: 0.5in 0.65in 0.5in 0.65in;
     }
-    h1 { font-size: 16pt; font-weight: 800; color: #E05A2B; margin-bottom: 2px; }
-    .sub { font-size: 10.5pt; font-weight: 600; color: #6B5D55; margin-bottom: 16px; border-bottom: 1.5px solid #E6DDD2; padding-bottom: 8px; }
-    .box { background: #F6F1EA; border: 1px solid #E6DDD2; border-radius: 8px; padding: 12px 16px; margin: 14px 0; }
-    h2 { font-size: 11pt; font-weight: 700; color: #E05A2B; margin: 14px 0 6px 0; }
-    p { margin: 0 0 8px 0; text-align: justify; }
-    ul { margin: 4px 0 10px 20px; }
-    li { margin-bottom: 4px; }
-    .sign-box { margin-top: 26px; border-top: 1px solid #E6DDD2; padding-top: 12px; }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    html, body {
+        background: #FFFFFF;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 8.7pt;
+        line-height: 1.34;
+        color: #2D241E;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .page {
+        width: 100%;
+        height: 9.85in;
+        max-height: 9.85in;
+        min-height: 9.85in;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 2px;
+    }
+    h1 {
+        font-size: 15.0pt;
+        font-weight: 800;
+        color: #D9531E;
+        margin-bottom: 2px;
+        letter-spacing: -0.01em;
+    }
+    .sub {
+        font-size: 9.2pt;
+        font-weight: 600;
+        color: #6E5F55;
+        margin-bottom: 10px;
+        border-bottom: 1.5px solid #E5DACB;
+        padding-bottom: 4px;
+    }
+    .box {
+        background: #F7EFE6;
+        border: 1px solid #E5DACB;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        font-size: 8.5pt;
+        line-height: 1.4;
+    }
+    h2 {
+        font-size: 10.0pt;
+        font-weight: 700;
+        color: #C84E18;
+        margin: 8px 0 3px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+    p {
+        margin-bottom: 5px;
+        text-align: justify;
+    }
+    ul {
+        margin: 2px 0 6px 18px;
+    }
+    li {
+        margin-bottom: 3px;
+    }
+    .sign-box {
+        margin-top: 10px;
+        border-top: 1px solid #E5DACB;
+        padding-top: 6px;
+        font-size: 8.2pt;
+        color: #5C4E46;
+        display: flex;
+        justify-content: space-between;
+    }
+    code {
+        font-family: Consolas, monospace;
+        font-size: 8.0pt;
+        background: #F4ECE1;
+        padding: 0.5px 3px;
+        border-radius: 2px;
+        color: #7A2C0D;
+    }
 </style>
 </head>
 <body>
-    <h1>AI-Use Disclosure Statement</h1>
-    <div class="sub">IBM Qiskit Fall Fest 2026 Challenge · QC@IITI, IIT Indore</div>
+<div class="page">
+    <div class="page-content">
+        <h1>AI-Use Disclosure Statement</h1>
+        <div class="sub">IBM Qiskit Fall Fest 2026 Challenge · QC@IITI, Indian Institute of Technology Indore</div>
 
-    <div class="box">
-        <strong>Project Name:</strong> Quantum Traffic Gridlock Prototype<br>
-        <strong>Author / Team Lead:</strong> Harsh Parmar<br>
-        <strong>Repository:</strong> https://github.com/harshparmar2004/Quantum-Traffic-Gridlock-Prototype.git<br>
-        <strong>Date:</strong> October 2026
+        <div class="box">
+            <strong>Project Name:</strong> Quantum Traffic Gridlock Prototype<br>
+            <strong>Author / Team Lead:</strong> Harsh Parmar<br>
+            <strong>Repository:</strong> https://github.com/harshparmar2004/Quantum-Traffic-Gridlock-Prototype.git<br>
+            <strong>Track:</strong> Urban Signal Gridlock Optimization &nbsp;|&nbsp; <strong>Date:</strong> October 2026
+        </div>
+
+        <h2>1. Declaration of AI Assistance</h2>
+        <p>
+            In accordance with the academic integrity and open science guidelines of the IBM Qiskit Fall Fest 2026, the submission team declares that generative AI tools (specifically Google DeepMind Antigravity and Claude 3.5 Sonnet) were utilized during the development and documentation of this project.
+        </p>
+
+        <h2>2. Scope and Nature of AI Utilization</h2>
+        <p>AI tools were utilized strictly for:</p>
+        <ul>
+            <li><strong>Code Acceleration & Boilerplate Scaffolding:</strong> Drafting initial CLI argument parser scaffolding (<code>run.py</code>), standard library HTTP routing endpoints (<code>server.py</code>), and automated unit test fixtures (<code>pytest</code>).</li>
+            <li><strong>Documentation & Formatting:</strong> Assisting in drafting Markdown documentation, proofreading technical explanations, and formatting LaTeX and HTML formula blocks.</li>
+            <li><strong>Canvas Layouts:</strong> Generating responsive CSS layouts and HTML5 canvas coordinate routines for the interactive visualizer in <code>dashboard/index.html</code>.</li>
+        </ul>
+
+        <h2>3. Human Authorship & Mathematical Verification</h2>
+        <p>
+            The core scientific and algorithmic contributions were independently authored, mathematically verified, and benchmarked by the human author:
+        </p>
+        <ul>
+            <li><strong>First-Principles QUBO Modeling:</strong> The continuous-time fluid queue balance formulation, Lyapunov drift objective (<i>Q</i><sup>2</sup>), and demand-capped effective capacity (V2) were conceived and derived by the author to ensure zero schedule enumeration.</li>
+            <li><strong>Variational Quantum Pipeline:</strong> The Fourier-frequency parameterization, Ising Hamiltonian reduction, multi-restart COBYLA optimizer, and OpenQASM 3 serialization were mathematically designed and empirically calibrated on Qiskit 2.x.</li>
+            <li><strong>Section 11 Innovation Extensions:</strong> The 12-qubit arterial cascade, discrete Laplacian MUTCD safety constraint, and Richardson Zero-Noise Extrapolation routines were derived, implemented, and validated by the author.</li>
+        </ul>
+
+        <h2>4. Statement of Originality & Hackathon Rule Compliance</h2>
+        <p>
+            The authors confirm that no proprietary solutions, pre-computed lookup tables, or forbidden external packages (e.g., <code>qiskit-aer</code>) were used. The submitted solution executes 100% offline on standard CPU architectures and strictly complies with all competition guidelines.
+        </p>
     </div>
-
-    <h2>1. Declaration of AI Assistance</h2>
-    <p>
-        In accordance with the academic integrity and open science guidelines of the IBM Qiskit Fall Fest 2026, the submission team declares that generative AI tools (specifically Google DeepMind Antigravity and Claude 3.5 Sonnet) were utilized during the development of this project.
-    </p>
-
-    <h2>2. Scope and Nature of AI Utilization</h2>
-    <p>AI tools were utilized strictly for:</p>
-    <ul>
-        <li><strong>Code Acceleration & Boilerplate:</strong> Drafting initial scaffolding for the CLI parser (<code>run.py</code>), standard library HTTP endpoints (<code>server.py</code>), and automated unit test fixtures (<code>pytest</code>).</li>
-        <li><strong>Documentation & Formatting:</strong> Assisting in drafting Markdown documentation, proofreading technical explanations, and structuring LaTeX formula tables.</li>
-        <li><strong>HTML/CSS Canvas Layouts:</strong> Generating responsive CSS layouts and HTML5 canvas coordinate routines for the interactive visualizer in <code>dashboard/index.html</code>.</li>
-    </ul>
-
-    <h2>3. Human Authorship & Mathematical Verification</h2>
-    <p>
-        The core scientific and algorithmic contributions were independently authored, mathematically verified, and benchmarked by the human authors:
-    </p>
-    <ul>
-        <li><strong>First-Principles QUBO Modeling:</strong> The continuous-time queue balance formulation, Lyapunov drift objective ($Q^2$), and demand-capped effective capacity (V2) were conceived and derived by the author to ensure zero schedule enumeration.</li>
-        <li><strong>Variational Quantum Pipeline:</strong> The Fourier-frequency parameterization, Ising Hamiltonian reduction, multi-restart COBYLA optimizer, and OpenQASM 3 serialization were mathematically designed and empirically calibrated on Qiskit 2.x.</li>
-        <li><strong>Section 11 Innovation Extensions:</strong> The 12-qubit corridor cascade, discrete Laplacian MUTCD safety constraint, and Richardson Zero-Noise Extrapolation routines were derived and validated by the author.</li>
-    </ul>
-
-    <h2>4. Statement of Originality & Hackathon Rule Compliance</h2>
-    <p>
-        The authors confirm that no proprietary solutions, pre-computed lookup tables, or forbidden external packages (e.g., <code>qiskit-aer</code>) were used. The submitted solution executes 100% offline on standard CPU architectures and strictly complies with all competition guidelines.
-    </p>
 
     <div class="sign-box">
-        <strong>Declared by:</strong> Harsh Parmar & Team<br>
-        <strong>Status:</strong> Verified & Submitted for Evaluation
+        <div><strong>Declared by:</strong> Harsh Parmar & Team (QC@IITI)</div>
+        <div><strong>Status:</strong> Verified & Certified Submission</div>
     </div>
+</div>
 </body>
 </html>
