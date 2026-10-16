@@ -1,0 +1,83 @@
+{
+  "scenario": "R",
+  "depth_ablation": [
+    {
+      "p": 1,
+      "mean_E_Q": 108.79,
+      "mean_lift": 0.5357,
+      "min_lift": 0.5299,
+      "mean_enrichment": 3.69,
+      "time_per_seed": 0.11
+    },
+    {
+      "p": 2,
+      "mean_E_Q": 101.9,
+      "mean_lift": 0.6227,
+      "min_lift": 0.6199,
+      "mean_enrichment": 5.62,
+      "time_per_seed": 0.37
+    },
+    {
+      "p": 3,
+      "mean_E_Q": 106.61,
+      "mean_lift": 0.5633,
+      "min_lift": 0.5318,
+      "mean_enrichment": 3.79,
+      "time_per_seed": 0.43
+    },
+    {
+      "p": 4,
+      "mean_E_Q": 107.0,
+      "mean_lift": 0.5584,
+      "min_lift": 0.5513,
+      "mean_enrichment": 1.35,
+      "time_per_seed": 0.47
+    }
+  ],
+  "variant_ablation": [
+    {
+      "variant": "V0",
+      "mean_E_Q": 109.52,
+      "mean_lift": 0.5266,
+      "min_lift": 0.4998,
+      "mean_enrichment": 2.86
+    },
+    {
+      "variant": "V1",
+      "mean_E_Q": 108.82,
+      "mean_lift": 0.5354,
+      "min_lift": 0.516,
+      "mean_enrichment": 2.25
+    },
+    {
+      "variant": "V2",
+      "mean_E_Q": 106.61,
+      "mean_lift": 0.5633,
+      "min_lift": 0.5318,
+      "mean_enrichment": 3.79
+    }
+  ],
+  "cvar_ablation": [
+    {
+      "cvar_alpha": 1.0,
+      "mean_E_Q": 106.61,
+      "mean_lift": 0.5633,
+      "min_lift": 0.5318,
+      "mean_enrichment": 3.79
+    },
+    {
+      "cvar_alpha": 0.5,
+      "mean_E_Q": 109.8,
+      "mean_lift": 0.5231,
+      "min_lift": 0.4966,
+      "mean_enrichment": 4.63
+    },
+    {
+      "cvar_alpha": 0.25,
+      "mean_E_Q": 129.33,
+      "mean_lift": 0.2766,
+      "min_lift": 0.1485,
+      "mean_enrichment": 3.19
+    }
+  ]
+}

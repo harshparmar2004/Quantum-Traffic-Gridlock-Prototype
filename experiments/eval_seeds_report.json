@@ -1,0 +1,162 @@
+[
+  {
+    "scenario": "R",
+    "C_star": 72.0,
+    "C_rand": 151.25,
+    "seeds": [
+      {
+        "seed": 0,
+        "E_Q": 107.9,
+        "lift": 0.5471,
+        "elite_enrichment": 3.01,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.41
+      },
+      {
+        "seed": 1,
+        "E_Q": 108.04,
+        "lift": 0.5452,
+        "elite_enrichment": 2.84,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.38
+      },
+      {
+        "seed": 2,
+        "E_Q": 99.34,
+        "lift": 0.655,
+        "elite_enrichment": 7.66,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.48
+      },
+      {
+        "seed": 3,
+        "E_Q": 109.11,
+        "lift": 0.5318,
+        "elite_enrichment": 2.62,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.44
+      },
+      {
+        "seed": 4,
+        "E_Q": 108.67,
+        "lift": 0.5373,
+        "elite_enrichment": 2.82,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.38
+      },
+      {
+        "seed": 5,
+        "E_Q": 108.18,
+        "lift": 0.5435,
+        "elite_enrichment": 2.82,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.45
+      },
+      {
+        "seed": 6,
+        "E_Q": 107.47,
+        "lift": 0.5525,
+        "elite_enrichment": 3.06,
+        "best_sample": "11101010",
+        "best_sample_cost": 72.0,
+        "evals_used": 300,
+        "time_sec": 0.38
+      }
+    ],
+    "mean_lift": 0.5589,
+    "robustness_clipped_min_lift": 0.5318,
+    "mean_enrichment": 3.55
+  },
+  {
+    "scenario": "H_placeholder",
+    "C_star": 98.0,
+    "C_rand": 141.921875,
+    "seeds": [
+      {
+        "seed": 0,
+        "E_Q": 125.75,
+        "lift": 0.3682,
+        "elite_enrichment": 3.19,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.37
+      },
+      {
+        "seed": 1,
+        "E_Q": 125.59,
+        "lift": 0.3718,
+        "elite_enrichment": 3.38,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.42
+      },
+      {
+        "seed": 2,
+        "E_Q": 125.45,
+        "lift": 0.3749,
+        "elite_enrichment": 3.38,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.38
+      },
+      {
+        "seed": 3,
+        "E_Q": 125.32,
+        "lift": 0.3781,
+        "elite_enrichment": 3.04,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.35
+      },
+      {
+        "seed": 4,
+        "E_Q": 125.66,
+        "lift": 0.3701,
+        "elite_enrichment": 3.38,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.42
+      },
+      {
+        "seed": 5,
+        "E_Q": 125.45,
+        "lift": 0.375,
+        "elite_enrichment": 3.28,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.4
+      },
+      {
+        "seed": 6,
+        "E_Q": 125.29,
+        "lift": 0.3787,
+        "elite_enrichment": 3.21,
+        "best_sample": "10010110",
+        "best_sample_cost": 98.0,
+        "evals_used": 300,
+        "time_sec": 0.38
+      }
+    ],
+    "mean_lift": 0.3738,
+    "robustness_clipped_min_lift": 0.3682,
+    "mean_enrichment": 3.27
+  }
+]

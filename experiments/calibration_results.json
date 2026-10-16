@@ -1,0 +1,26 @@
+{
+  "num_scenarios": 300,
+  "seed": 42,
+  "default_configuration": {
+    "alpha": 1.0,
+    "beta": 0.05,
+    "margin": 1.0,
+    "variant": "V2",
+    "mean_regret": 0.033596885248363795,
+    "median_regret": 0.008205882088895673,
+    "p90_regret": 0.0995713655591778,
+    "max_regret": 0.39161719733765055,
+    "zero_regret_fraction": 0.38
+  },
+  "scenario_r_result": {
+    "alpha": 1.0,
+    "beta": 0.05,
+    "margin": 1.0,
+    "variant": "V2",
+    "mean_regret": 0.0,
+    "median_regret": 0.0,
+    "p90_regret": 0.0,
+    "max_regret": 0.0,
+    "zero_regret_fraction": 1.0
+  }
+}
